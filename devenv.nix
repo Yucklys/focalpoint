@@ -5,7 +5,9 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = with pkgs; [
+    gtk4
+  ];
 
   # https://devenv.sh/languages/
   languages.rust = {

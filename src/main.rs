@@ -1,3 +1,27 @@
-fn main() {
-    println!("Hello, world!");
+use gtk::prelude::*;
+use gtk::{glib, Application, ApplicationWindow, Button};
+
+fn main() -> glib::ExitCode {
+    let application = Application::builder()
+        .application_id("io.github.yucklys.focalpoint")
+        .build();
+
+    application.connect_activate(|app| {
+        let window = ApplicationWindow::builder()
+            .application(app)
+            .title("Focal Point")
+            .default_width(350)
+            .default_height(70)
+            .build();
+
+        let button = Button::with_label("Click me!");
+        button.connect_clicked(|_| {
+            eprintln!("Clicked!");
+        });
+        window.set_child(Some(&button));
+
+        window.present();
+    });
+
+    application.run()
 }

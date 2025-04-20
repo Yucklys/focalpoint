@@ -1,14 +1,11 @@
 {
   pkgs,
-  lib,
-  config,
-  inputs,
   ...
 }:
 
 {
   # https://devenv.sh/basics/
-  env.GREET = "devenv";
+  env.RUST_LOG = "TRACE";
 
   # https://devenv.sh/packages/
   packages = with pkgs; [

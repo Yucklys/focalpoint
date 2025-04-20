@@ -1,27 +1,33 @@
 use gtk::prelude::*;
-use gtk::{glib, Application, ApplicationWindow, Button};
+use gtk::{Application, ApplicationWindow, Button};
+use gtk4_layer_shell::{Layer, LayerShell, KeyboardMode};
 
-fn main() -> glib::ExitCode {
-    let application = Application::builder()
-        .application_id("io.github.yucklys.focalpoint")
+const APP_ID: &str = "io.github.yucklys.focalpoint";
+
+fn main() {
+    let app = Application::builder()
+        .application_id(APP_ID)
         .build();
 
-    application.connect_activate(|app| {
-        let window = ApplicationWindow::builder()
-            .application(app)
-            .title("Focal Point")
-            .default_width(350)
-            .default_height(70)
-            .build();
+    app.connect_activate(build_ui);
 
-        let button = Button::with_label("Click me!");
-        button.connect_clicked(|_| {
-            eprintln!("Clicked!");
-        });
-        window.set_child(Some(&button));
+    app.run();
+}
 
-        window.present();
-    });
+fn build_ui(app: &Application) {
+    let window = ApplicationWindow::builder()
+        .application(app)
+        .title("Focal Point")
+        .default_width(350)
+        .default_height(70)
+        .build();
 
-    application.run()
+		window.init_layer_shell();
+		window.set_layer(Layer::Top);
+		window.set_keyboard_mode(KeyboardMode::OnDemand);
+
+    let label = gtk::Label::new(Some("Focal Point"));
+    window.set_child(Some(&label));
+
+    window.present();
 }

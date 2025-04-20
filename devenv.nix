@@ -1,4 +1,10 @@
-{ pkgs, lib, config, inputs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
 
 {
   # https://devenv.sh/basics/
@@ -7,6 +13,7 @@
   # https://devenv.sh/packages/
   packages = with pkgs; [
     gtk4
+    gtk4-layer-shell
   ];
 
   # https://devenv.sh/languages/
